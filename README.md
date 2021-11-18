@@ -11,3 +11,12 @@ Data files are separated into the following splits:
 * **Dev** : Tuning hyper parameters
 * **Test** : Final test and numbers in the paper
 * **(Test1)** : Future test
+
+# Repo structure
+``` 
+└── Causality-based-event-sequence-modelling
+    ├── README.md
+    ├── nh
+
+
+``` 
