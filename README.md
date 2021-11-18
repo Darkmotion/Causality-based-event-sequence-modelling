@@ -25,16 +25,25 @@ Moreover, it provides useful datasets for experiments with the model.
 This solution code can be found in [this folder](related_implementations/nh-master)
 
 # Our approach
-The code for our approach is stored in [causal_nh folder](causal_nh/).
+The code for our approach is stored in [causal_nh/ folder](causal_nh/).
 We divided it into two modules: grander causality and the modified Neural Hawkes model.
-Examples of the code usage can be found in [notebooks folder](causal_nh/notebooks/)
+Examples of the code usage can be found in [notebooks/ folder](causal_nh/notebooks/)
 
 
 # Repo structure
 ``` 
-└── Causality-based-event-sequence-modelling
-    ├── README.md
-    ├── nh
-
+├── causal_nh
+│   ├── granger_causality
+│   ├── model
+│   ├── notebooks
+│   └── __init__.py
+├── data
+│   ├── data_hawkesinhib
+│   └── README.md
+├── related_implementations
+│   ├── Hawkes-Process-Toolkit-master
+│   ├── nh-master
+│   └── README.md
+└── README.md
 
 ``` 
