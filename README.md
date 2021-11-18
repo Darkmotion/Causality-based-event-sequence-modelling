@@ -24,6 +24,11 @@ It provides simple and understandable solution.
 Moreover, it provides useful datasets for experiments with the model. 
 This solution code can be found in [this folder](related_implementations/nh-master)
 
+# Our approach
+The code for our approach is stored in [causal_nh folder](causal_nh/).
+We divided it into two modules: grander causality and the modified Neural Hawkes model.
+Examples of the code usage can be found in [notebooks folder](causal_nh/notebooks/)
+
 
 # Repo structure
 ``` 
