@@ -1,0 +1,378 @@
+Epoch 0:
+Train Event Number:		480219
+Train Likelihood per event:	-1.36080
+Training time:			42.07 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.26577
+Dev evaluating time:		14.09 s
+Epoch time:			56.23 s
+
+Epoch 1:
+Train Event Number:		480219
+Train Likelihood per event:	-1.26022
+Training time:			41.64 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.25823
+Dev evaluating time:		14.20 s
+Epoch time:			56.57 s
+
+Epoch 2:
+Train Event Number:		480219
+Train Likelihood per event:	-1.25591
+Training time:			42.86 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.25489
+Dev evaluating time:		14.60 s
+Epoch time:			57.96 s
+
+Epoch 3:
+Train Event Number:		480219
+Train Likelihood per event:	-1.25252
+Training time:			42.32 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.25117
+Dev evaluating time:		14.39 s
+Epoch time:			57.45 s
+
+Epoch 4:
+Train Event Number:		480219
+Train Likelihood per event:	-1.24774
+Training time:			42.88 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.24558
+Dev evaluating time:		14.14 s
+Epoch time:			57.55 s
+
+Epoch 5:
+Train Event Number:		480219
+Train Likelihood per event:	-1.24235
+Training time:			42.13 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.24019
+Dev evaluating time:		13.90 s
+Epoch time:			56.74 s
+
+Epoch 6:
+Train Event Number:		480219
+Train Likelihood per event:	-1.23686
+Training time:			42.28 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.23492
+Dev evaluating time:		13.97 s
+Epoch time:			56.89 s
+
+Epoch 7:
+Train Event Number:		480219
+Train Likelihood per event:	-1.23213
+Training time:			42.42 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.23050
+Dev evaluating time:		13.95 s
+Epoch time:			56.94 s
+
+Epoch 8:
+Train Event Number:		480219
+Train Likelihood per event:	-1.22836
+Training time:			42.71 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.22709
+Dev evaluating time:		14.16 s
+Epoch time:			57.46 s
+
+Epoch 9:
+Train Event Number:		480219
+Train Likelihood per event:	-1.22462
+Training time:			41.83 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.22364
+Dev evaluating time:		13.72 s
+Epoch time:			56.19 s
+
+Epoch 10:
+Train Event Number:		480219
+Train Likelihood per event:	-1.22163
+Training time:			41.99 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.22071
+Dev evaluating time:		14.19 s
+Epoch time:			56.78 s
+
+Epoch 11:
+Train Event Number:		480219
+Train Likelihood per event:	-1.21885
+Training time:			42.45 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.21880
+Dev evaluating time:		13.76 s
+Epoch time:			56.82 s
+
+Epoch 12:
+Train Event Number:		480219
+Train Likelihood per event:	-1.21653
+Training time:			42.18 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.21603
+Dev evaluating time:		13.88 s
+Epoch time:			56.65 s
+
+Epoch 13:
+Train Event Number:		480219
+Train Likelihood per event:	-1.21434
+Training time:			42.42 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.21372
+Dev evaluating time:		13.86 s
+Epoch time:			56.87 s
+
+Epoch 14:
+Train Event Number:		480219
+Train Likelihood per event:	-1.21237
+Training time:			42.13 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.21172
+Dev evaluating time:		14.07 s
+Epoch time:			56.79 s
+
+Epoch 15:
+Train Event Number:		480219
+Train Likelihood per event:	-1.21067
+Training time:			42.29 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.21064
+Dev evaluating time:		14.26 s
+Epoch time:			57.12 s
+
+Epoch 16:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20902
+Training time:			42.38 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20863
+Dev evaluating time:		13.93 s
+Epoch time:			56.92 s
+
+Epoch 17:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20753
+Training time:			42.03 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20735
+Dev evaluating time:		13.90 s
+Epoch time:			56.47 s
+
+Epoch 18:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20566
+Training time:			42.53 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20539
+Dev evaluating time:		14.02 s
+Epoch time:			57.09 s
+
+Epoch 19:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20436
+Training time:			42.57 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20514
+Dev evaluating time:		14.12 s
+Epoch time:			57.45 s
+
+Epoch 20:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20319
+Training time:			42.17 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20404
+Dev evaluating time:		14.03 s
+Epoch time:			56.81 s
+
+Epoch 21:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20200
+Training time:			42.13 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20275
+Dev evaluating time:		14.64 s
+Epoch time:			57.35 s
+
+Epoch 22:
+Train Event Number:		480219
+Train Likelihood per event:	-1.20056
+Training time:			42.21 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20121
+Dev evaluating time:		13.95 s
+Epoch time:			56.92 s
+
+Epoch 23:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19961
+Training time:			42.58 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.20087
+Dev evaluating time:		14.00 s
+Epoch time:			57.12 s
+
+Epoch 24:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19898
+Training time:			42.17 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19984
+Dev evaluating time:		14.04 s
+Epoch time:			56.89 s
+
+Epoch 25:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19788
+Training time:			41.83 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19882
+Dev evaluating time:		13.78 s
+Epoch time:			56.22 s
+
+Epoch 26:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19666
+Training time:			42.01 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19836
+Dev evaluating time:		13.98 s
+Epoch time:			56.55 s
+
+Epoch 27:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19557
+Training time:			42.28 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19719
+Dev evaluating time:		14.13 s
+Epoch time:			56.95 s
+
+Epoch 28:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19521
+Training time:			42.74 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19602
+Dev evaluating time:		14.00 s
+Epoch time:			57.43 s
+
+Epoch 29:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19430
+Training time:			42.34 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19539
+Dev evaluating time:		13.95 s
+Epoch time:			56.93 s
+
+Epoch 30:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19373
+Training time:			42.34 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19421
+Dev evaluating time:		14.03 s
+Epoch time:			56.96 s
+
+Epoch 31:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19282
+Training time:			41.82 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19290
+Dev evaluating time:		14.11 s
+Epoch time:			56.48 s
+
+Epoch 32:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19204
+Training time:			42.27 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19327
+Dev evaluating time:		14.47 s
+Epoch time:			57.34 s
+
+Epoch 33:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19108
+Training time:			42.25 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19161
+Dev evaluating time:		13.87 s
+Epoch time:			56.80 s
+
+Epoch 34:
+Train Event Number:		480219
+Train Likelihood per event:	-1.19059
+Training time:			41.98 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19131
+Dev evaluating time:		14.05 s
+Epoch time:			56.60 s
+
+Epoch 35:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18953
+Training time:			43.99 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19085
+Dev evaluating time:		14.31 s
+Epoch time:			58.96 s
+
+Epoch 36:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18904
+Training time:			41.86 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.19060
+Dev evaluating time:		13.82 s
+Epoch time:			56.21 s
+
+Epoch 37:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18844
+Training time:			41.90 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.18909
+Dev evaluating time:		14.09 s
+Epoch time:			56.53 s
+
+Epoch 38:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18789
+Training time:			42.21 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.18928
+Dev evaluating time:		14.04 s
+Epoch time:			56.87 s
+
+Epoch 39:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18733
+Training time:			41.64 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.18810
+Dev evaluating time:		13.72 s
+Epoch time:			55.98 s
+
+Epoch 40:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18626
+Training time:			42.13 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.18784
+Dev evaluating time:		13.87 s
+Epoch time:			56.55 s
+
+Epoch 41:
+Train Event Number:		480219
+Train Likelihood per event:	-1.18583
+Training time:			42.51 s
+Dev Event Number:		60380
+Dev Likelihood per event:	-1.18791
+Dev evaluating time:		13.72 s
+Epoch time:			57.01 s
+
