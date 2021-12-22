@@ -10,6 +10,7 @@ error/
 *.xml
 .idea
 related_implementations/
+causal_nh/notebooks/.ipynb_checkpoints
 
 
 
