@@ -12,8 +12,6 @@ import test
 import numpy as np
 import torch.nn.functional as F
 
-
-
 def log_valid(path_to_model, time_duration, type_test, seq_lens, device):
     model = torch.load(path_to_model)
     seq_lens = torch.tensor(seq_lens)
@@ -34,7 +32,6 @@ def log_valid(path_to_model, time_duration, type_test, seq_lens, device):
     type_likelihood = torch.sum(part_one_likelihood - sum_likelihood) / total_size
     time_likelihood = log_likelihood - type_likelihood
     return log_likelihood, type_likelihood, time_likelihood
-
 
 def type_valid(path_to_model, time_durations, seq_lens_lists, type_tests):
     model = torch.load(path_to_model)
@@ -65,7 +62,6 @@ def type_valid(path_to_model, time_durations, seq_lens_lists, type_tests):
             numb_correct += 1
     return numb_correct / total_numb
 
-
 def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_size=10):
     now = str(datetime.datetime.today()).split()
     now = now[0] + "-" + now[1][:5]
@@ -74,7 +70,6 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
     type_size = train[3]
     train = train[:3]
     dev = dev[:3]
-
 
     time_duration, type_train, seq_lens_list = train
     test_duration, type_test, seq_lens_test = dev
@@ -143,7 +138,7 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
         type_accuracy_list.append(accuracy)
 
     figure, ax = plt.subplots(nrows=1, ncols=3, figsize=(16, 4))
-    figure.suptitle(dataset + "'s Training Figure")
+    figure.suptitle("'s Training Figure")
     ax[0].set_xlabel("epochs")
     ax[0].plot(loss_value, label='training loss')
     ax[0].plot(log_test_list, label='testing loss')
