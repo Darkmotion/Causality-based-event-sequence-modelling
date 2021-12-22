@@ -113,3 +113,55 @@ def plot_sample_ts(dataset, i, dim):
     plt.show()
 
 
+def padding_full(time_duration, type_train, seq_lens_list, type_size):
+    max_len = max(seq_lens_list)
+    batch_size = len(time_duration)
+    time_duration_padded = torch.zeros(size=(batch_size, max_len+1))
+    type_train_padded = torch.zeros(size=(batch_size, max_len+1), dtype=torch.long)
+    for idx in range(batch_size):
+        time_duration_padded[idx, 1:seq_lens_list[idx]+1] = time_duration[idx]
+        type_train_padded[idx, 0] = type_size
+        type_train_padded[idx, 1:seq_lens_list[idx]+1] = type_train[idx]
+    return time_duration_padded, type_train_padded
+
+
+class Data_Batch:
+    def __init__(self, duration, events, seq_len):
+        self.duration = duration
+        self.events = events
+        self.seq_len = seq_len
+
+    def __len__(self):
+        return self.events.shape[0]
+
+    def __getitem__(self, index):
+        sample = {
+            'event_seq': self.events[index],
+            'duration_seq': self.duration[index],
+            'seq_len': self.seq_len[index]
+        }
+        return sample
+
+def generate_simulation(durations, seq_len):
+    max_seq_len = max(seq_len)
+    simulated_len = max_seq_len * 5
+    sim_durations = torch.zeros(durations.shape[0], simulated_len)
+    sim_duration_index = torch.zeros(durations.shape[0], simulated_len, dtype=torch.long)
+    total_time_seqs = []
+    for idx in range(durations.shape[0]):
+        time_seq = torch.stack([torch.sum(durations[idx][:i]) for i in range(1, seq_len[idx]+2)])
+        total_time = time_seq[-1].item()
+        total_time_seqs.append(total_time)
+        sim_time_seq, _ = torch.sort(torch.empty(simulated_len).uniform_(0, total_time))
+        sim_duration = torch.zeros(simulated_len)
+
+        for idx2 in range(time_seq.shape.__getitem__(-1)):
+            duration_index = sim_time_seq > time_seq[idx2].item()
+            sim_duration[duration_index] = sim_time_seq[duration_index] - time_seq[idx2]
+            sim_duration_index[idx][duration_index] = idx2
+
+        sim_durations[idx, :] = sim_duration[:]
+    total_time_seqs = torch.tensor(total_time_seqs)
+    return sim_durations, total_time_seqs, sim_duration_index
+
+
