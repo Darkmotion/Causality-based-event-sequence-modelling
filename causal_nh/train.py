@@ -12,8 +12,10 @@ import test
 import numpy as np
 import torch.nn.functional as F
 
-def log_valid(time_duration, type_test, seq_lens, device):
-    model = torch.load("model.pt")
+
+
+def log_valid(path_to_model, time_duration, type_test, seq_lens, device):
+    model = torch.load(path_to_model)
     seq_lens = torch.tensor(seq_lens)
     sim_durations, total_time_seqs, time_simulation_index = utils.generate_simulation(time_duration, seq_lens)
     type_test.to(device)
@@ -34,8 +36,8 @@ def log_valid(time_duration, type_test, seq_lens, device):
     return log_likelihood, type_likelihood, time_likelihood
 
 
-def type_valid(time_durations, seq_lens_lists, type_tests):
-    model = torch.load("model.pt")
+def type_valid(path_to_model, time_durations, seq_lens_lists, type_tests):
+    model = torch.load(path_to_model)
     numb_tests = time_durations.shape[0]
     original_types = []
     predicted_types = []
@@ -128,15 +130,16 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
         loss_value.append(-avg_log)
         print("The log-likelihood at epoch {0}: {1}".format(i, avg_log))
         torch.save(model, path_to_save + "model.pt")
+        path_to_model = path_to_save + "model.pt"
 
         print("\nvalidating on log likelihood...")
-        log_likelihood, type_likelihood, time_likelihood = log_valid(test_duration, type_test, seq_lens_test, device)
+        log_likelihood, type_likelihood, time_likelihood = log_valid(path_to_model, test_duration, type_test, seq_lens_test, device)
         log_test_list.append(-log_likelihood.item())
         log_type_list.append(-type_likelihood.item())
         log_time_list.append(-time_likelihood.item())
 
         print("\nvalidating on type prediction accuracy if we know when next event will happen...\n\n")
-        accuracy = type_valid(test_duration, seq_lens_test, type_test)
+        accuracy = type_valid(path_to_model, test_duration, seq_lens_test, type_test)
         type_accuracy_list.append(accuracy)
 
     figure, ax = plt.subplots(nrows=1, ncols=3, figsize=(16, 4))
