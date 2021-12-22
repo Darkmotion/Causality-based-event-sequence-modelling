@@ -1,5 +1,4 @@
 *.pkl
-model/
 .vscode/
 __pycache__/
 *.txt
@@ -9,6 +8,8 @@ error/
 .env/
 .DS_Store
 *.xml
+.idea
+related_implementations/
 
 
 
