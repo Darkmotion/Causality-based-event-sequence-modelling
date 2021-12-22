@@ -4,6 +4,7 @@ __pycache__/
 *.sh
 log/
 error/
+artefacts/*
 .env/
 .DS_Store
 *.xml
