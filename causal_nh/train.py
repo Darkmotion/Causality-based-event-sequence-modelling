@@ -153,12 +153,8 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
     ax[2].plot(type_accuracy_list, label='dev type accuracy')
     plt.subplots_adjust(top=0.85)
     figure.tight_layout()
-    plt.savefig("training.jpg")
+    plt.savefig(path_to_save + "training.jpg")
 
-    t4 = time.time()
-    training_time = t4 - t3
-    print("training done..")
-    print("training takes {0} seconds".format(training_time))
 
     print("Saving training loss and validation data...")
     print("If you have a trained model before this, please combine the previous train_date file to" +
