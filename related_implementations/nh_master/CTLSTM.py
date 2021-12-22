@@ -4,8 +4,14 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import utils
-import dataloader
+
+import sys
+sys.path.insert(1,
+                '/Users/polina/research/Causality-based-event-sequence-modelling/related_implementations/')
+
+
+from nh_master.dataloader import CTLSTMDataset, pad_batch_fn
+from nh_master.utils import generate_sim_time_seqs, pad_bos
 from torch.utils.data import DataLoader
 
 
@@ -126,6 +132,7 @@ class CTLSTM(nn.Module):
         for idx, (total_time, seq_len) in enumerate(zip(total_time_seqs, seqs_length)):
             mc_coefficient = total_time / (seq_len)
             simulated_likelihood[idx] = mc_coefficient * torch.sum(torch.sum(sim_lambda_k[idx, torch.arange(seq_len).long(), :]))
+
 
         loglikelihood = torch.sum(original_loglikelihood - simulated_likelihood)
         return loglikelihood
