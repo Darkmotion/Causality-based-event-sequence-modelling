@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 from math import sqrt
-from causal_nh.model.NeuralHawkesCuda import NeuralHawkes
+from causal_nh.model.NeuralHawkes import NeuralHawkes
 from sklearn.metrics import accuracy_score
 
 def simulate_prediction_original_nh(time_durations,
