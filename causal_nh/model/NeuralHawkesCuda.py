@@ -3,6 +3,7 @@ from causal_nh.model import ContTimeLSTM_Cell_Cuda as ContTimeLSTM_Cell
 import torch.nn as nn
 
 
+
 class NeuralHawkes(nn.Module):
     def __init__(self, n_types, beta=0.1, hid_dim=32, lr=0.01, device='cuda'):
         self.n_types = n_types

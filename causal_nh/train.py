@@ -160,6 +160,9 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
     log_time_list = []
     log_type_list = []
 
+    prefix = datetime.datetime.now().strftime('%Y_%m_%H_%M_%S')
+    print('Model is saved under', prefix)
+
     type_accuracy_list = []
     for i in range(num_epochs):
         loss_total = 0
@@ -184,8 +187,8 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
         avg_log = loss_total / events_total
         loss_value.append(-avg_log)
         print("The log-likelihood at epoch {0}: {1}".format(i, avg_log))
-        torch.save(model, path_to_save + "model.pt")
-        path_to_model = path_to_save + "model.pt"
+        torch.save(model, path_to_save + f"{prefix}_model.pt")
+        path_to_model = path_to_save + f"{prefix}_model.pt"
 
         print("\nvalidating on log likelihood...")
         log_likelihood, type_likelihood, time_likelihood = log_valid(path_to_model, test_duration, type_test, seq_lens_test, device)
@@ -213,7 +216,7 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
     ax[2].plot(type_accuracy_list, label='dev type accuracy')
     plt.subplots_adjust(top=0.85)
     figure.tight_layout()
-    plt.savefig(path_to_save + "training.jpg")
+    plt.savefig(path_to_save+f"{prefix}_training.jpg")
     plt.show()
 
 
@@ -273,6 +276,8 @@ def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=
     log_time_list = []
     log_type_list = []
 
+    prefix = datetime.datetime.now().strftime('%Y_%m_%H_%M_%S') + '_weighted_A_'
+    print('Model is saved under', prefix)
     type_accuracy_list = []
     for i in range(num_epochs):
         loss_total = 0
@@ -297,8 +302,8 @@ def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=
         avg_log = loss_total / events_total
         loss_value.append(-avg_log)
         print("The log-likelihood at epoch {0}: {1}".format(i, avg_log))
-        torch.save(model, path_to_save + "model.pt")
-        path_to_model = path_to_save + "model.pt"
+        torch.save(model, path_to_save + f"{prefix}_model.pt")
+        path_to_model = path_to_save + f"{prefix}_model.pt"
 
         print("\nvalidating on log likelihood...")
         log_likelihood, type_likelihood, time_likelihood = log_valid(path_to_model, test_duration, type_test, seq_lens_test, device)
@@ -329,7 +334,7 @@ def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=
     ax[2].plot(type_accuracy_list, label='dev type accuracy')
     plt.subplots_adjust(top=0.85)
     figure.tight_layout()
-    plt.savefig(path_to_save + "training.jpg")
+    plt.savefig(path_to_save+f"{prefix}_training.jpg")
     plt.show()
 
 
@@ -349,11 +354,6 @@ def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=
     file.write('\naccuracy: ')
     file.writelines(str(item) + " " for item in type_accuracy_list)
     file.close()
-
-
-
-
-
 
 def train_causal_nh_v2(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=10, batch_size=10):
     now = str(datetime.datetime.today()).split()
@@ -394,6 +394,9 @@ def train_causal_nh_v2(train, dev, A, path_to_save, used_model, lr=0.1, num_epoc
     log_time_list = []
     log_type_list = []
 
+    prefix = datetime.datetime.now().strftime('%Y_%m_%H_%M_%S') + '_mask_A_'
+    print('Model is saved under', prefix)
+
     type_accuracy_list = []
     for i in range(num_epochs):
         loss_total = 0
@@ -418,8 +421,8 @@ def train_causal_nh_v2(train, dev, A, path_to_save, used_model, lr=0.1, num_epoc
         avg_log = loss_total / events_total
         loss_value.append(-avg_log)
         print("The log-likelihood at epoch {0}: {1}".format(i, avg_log))
-        torch.save(model, path_to_save + "model.pt")
-        path_to_model = path_to_save + "model.pt"
+        torch.save(model, path_to_save + f"{prefix}_model.pt")
+        path_to_model = path_to_save + f"{prefix}_model.pt"
 
         print("\nvalidating on log likelihood...")
         log_likelihood, type_likelihood, time_likelihood = log_valid(path_to_model, test_duration, type_test, seq_lens_test, device)
@@ -449,7 +452,7 @@ def train_causal_nh_v2(train, dev, A, path_to_save, used_model, lr=0.1, num_epoc
     ax[2].plot(type_accuracy_list, label='dev type accuracy')
     plt.subplots_adjust(top=0.85)
     figure.tight_layout()
-    plt.savefig(path_to_save + "training.jpg")
+    plt.savefig(path_to_save+f"{prefix}_training.jpg")
     plt.show()
 
 
