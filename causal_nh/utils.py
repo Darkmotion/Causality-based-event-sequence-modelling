@@ -4,6 +4,7 @@ import numpy as np
 from tick.hawkes import SimuHawkesExpKernels
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 def open_pkl_file(path, description):
     with open(path, "rb") as f:
@@ -60,7 +61,7 @@ def generate_synthetic_dataset(type_size, adjacency, len_dataset, baseline_inten
                                       baseline=baseline,
                                       verbose=False)
 
-        run_time = 50
+        run_time = 20
         hawkes.end_time = run_time
         dt = 0.01
         hawkes.track_intensity(dt)
@@ -163,5 +164,42 @@ def generate_simulation(durations, seq_len):
         sim_durations[idx, :] = sim_duration[:]
     total_time_seqs = torch.tensor(total_time_seqs)
     return sim_durations, total_time_seqs, sim_duration_index
+
+
+def safe_dataset(dataset_name, dataset, dim_process, A, intensities):
+    path = f'../../data/data_{dataset_name}/'
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    train_size = int(0.9 * len(dataset))
+    dev_size = int(0.05 * train_size)
+
+    # print(len(dataset) - train_size - dev_size)
+
+    train = dataset[:train_size]
+    dev = dataset[train_size:train_size + dev_size]
+    test = dataset[train_size + dev_size:]
+
+    # print(len(train), len(dev), len(test))
+
+    with open(path + 'train.pkl', 'wb') as f:
+        pickle.dump({'train': train,
+                     'intensities': intensities[:train_size],
+                     'dim_process': dim_process}, f)
+
+    with open(path + 'dev.pkl', 'wb') as f:
+        pickle.dump({'dev': dev,
+                     'intensities': intensities[train_size:train_size + dev_size],
+                     'dim_process': dim_process}, f)
+
+    with open(path + 'test.pkl', 'wb') as f:
+        pickle.dump({'test': test,
+                     'intensities': intensities[train_size + dev_size:],
+                     'dim_process': dim_process}, f)
+
+    with open(path + 'A.pkl', 'wb') as f:
+        pickle.dump({'A': A}, f)
+
+
 
 
