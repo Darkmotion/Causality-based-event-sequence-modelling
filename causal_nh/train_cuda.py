@@ -244,7 +244,7 @@ def train_nh(train, dev, path_to_save, used_model, lr=0.1, num_epochs=10, batch_
     file.writelines(str(item) + " " for item in type_accuracy_list)
     file.close()
 
-def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=10, batch_size=10):
+def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=10, batch_size=10, dataset_name='default'):
     now = str(datetime.datetime.today()).split()
     now = now[0] + "-" + now[1][:5]
     print("Processing data...")
@@ -290,7 +290,7 @@ def train_causal_nh(train, dev, A, path_to_save, used_model, lr=0.1, num_epochs=
     model.to(device)
 
     prefix = datetime.datetime.now().strftime('%Y_%m_%H_%M_%S')
-
+    prefix = f'{dataset_name}_{prefix}'
     t3 = time.time()
 
     type_accuracy_list = []

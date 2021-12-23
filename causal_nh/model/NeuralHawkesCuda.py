@@ -167,7 +167,9 @@ class CausalNeuralHawkes(nn.Module):
         self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta)
         self.hidden_lambda = nn.Linear(self.hid_dim, self.n_types)
         self.weighted_A = torch.nn.Parameter(self.A, requires_grad=True)
-
+        #r = torch.ones((n_types, n_types)).to('cuda')
+        #print(r)
+        #self.weighted_A = torch.nn.Parameter(r, requires_grad=True)
         self.optimizer = torch.optim.Adam(self.parameters(), lr=lr)
 
         # длина на кол-во ивентов
@@ -249,7 +251,7 @@ class CausalNeuralHawkes(nn.Module):
         part_one_likelihood = torch.zeros(batch_size)
         sum_likelihood = torch.zeros(batch_size)
         h = h.to('cuda')
-        b = self.A.mul(self.weighted_A)
+        b = self.A.mul(self.weighted_A).t()
         r = torch.matmul(self.hidden_lambda(h), b)
         type_intensity = torch.nn.functional.softplus(r).transpose(
             0, 1
@@ -299,7 +301,7 @@ class CausalNeuralHawkes(nn.Module):
             h_sim_list.append(h_sim)
         h_sim_list = torch.stack(h_sim_list)
         sim_intensity = torch.nn.functional.softplus(
-            torch.matmul(self.hidden_lambda(h_sim_list), self.A.mul(self.weighted_A))
+            torch.matmul(self.hidden_lambda(h_sim_list), self.A.mul(self.weighted_A).t())
         ).transpose(0, 1)
         part_two_likelihood = torch.zeros(batch_size)
         for idx in range(batch_size):
