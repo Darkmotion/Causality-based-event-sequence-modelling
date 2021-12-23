@@ -46,6 +46,13 @@ def open_pkl_file(path, description):
         )
     return time_durations, type_seqs, seq_lens, type_size
 
+def open_pkl_file_original(path, description):
+    with open(path, "rb") as f:
+        data = pickle.load(f, encoding="latin1")
+        type_size = data["dim_process"]
+        data = data[description]
+    return data, type_size
+
 
 def generate_synthetic_dataset(type_size, adjacency, len_dataset, baseline_intensity=0.5):
     n_nodes = type_size  # dimension of the Hawkes process
@@ -61,7 +68,7 @@ def generate_synthetic_dataset(type_size, adjacency, len_dataset, baseline_inten
                                       baseline=baseline,
                                       verbose=False)
 
-        run_time = 20
+        run_time = 10
         hawkes.end_time = run_time
         dt = 0.01
         hawkes.track_intensity(dt)
@@ -179,6 +186,7 @@ def safe_dataset(dataset_name, dataset, dim_process, A, intensities):
     train = dataset[:train_size]
     dev = dataset[train_size:train_size + dev_size]
     test = dataset[train_size + dev_size:]
+    print(test[1])
 
     # print(len(train), len(dev), len(test))
 

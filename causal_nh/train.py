@@ -51,7 +51,6 @@ def type_valid(path_to_model, time_durations, seq_lens_lists, type_tests):
         lambda_all = F.softplus(model.hidden_lambda(h_out[-1]))
         lambda_sum = torch.sum(lambda_all, dim=-1)
         lambda_all = lambda_all / lambda_sum
-        # print(lambda_all)
         _, predict_type = torch.max(lambda_all, dim=-1)
         predicted_types.append(predict_type.item())
 

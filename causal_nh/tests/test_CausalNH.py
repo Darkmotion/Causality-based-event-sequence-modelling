@@ -1,5 +1,5 @@
 import torch
-from causal_nh.model.NeuralHawkes import CausalNeuralHawkes
+from causal_nh.model.NeuralHawkes import CausalNeuralHawkesTrainableWeighted
 
 train_type = torch.tensor([[4, 0, 3, 2, 1, 0, 3, 2, 1], [4, 0, 3, 2, 1, 0, 3, 0, 0]])
 train_dtime = torch.tensor(
@@ -25,8 +25,8 @@ A = torch.tensor([[1, 0, 0, 1],
 seq_len_list = torch.tensor([8, 6])
 total_time_list = torch.tensor([2.8, 2.8])
 # input to initialize the model include number of types
-model = CausalNeuralHawkes(4, A)
-print('NeuralHawkes model initialized with the following structure:')
+model = CausalNeuralHawkesTrainableWeighted(4, A=A, W=A*0.2)
+print('CausalNeuralHawkesTrainableWeighted model initialized with the following structure:')
 print(model)
 a_batch = (train_type, train_dtime)
 # The input to train include batch(padded time, padded type), padded_sim_durations, total_time_list, seq_len_list

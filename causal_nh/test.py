@@ -112,7 +112,7 @@ def test_prediction(test_data, idx_test_series, n_samples, start_test_idx, path_
     df['time_since_start'] = df['time'].cumsum()
     df['time_since_start_est'] = np.append(
         df['time_est'][0:1].values, df['time_est'][1:].values + df['time_since_start'][:-1].values)
-
+    print(df.events)
 
     plt.figure(figsize=(20, 5), dpi=200)
     plt.title(f'Comparison of predictions for time series {idx_test_series} from {dataset_name} dataset')

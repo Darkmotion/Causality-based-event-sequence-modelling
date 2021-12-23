@@ -5,7 +5,7 @@ import os
 import datetime
 import time
 from torch.utils.data import DataLoader
-from causal_nh.model.NeuralHawkesCuda import NeuralHawkes, CausalNeuralHawkesTrainableWeighted,\
+from causal_nh.model.NeuralHawkes import NeuralHawkes, CausalNeuralHawkesTrainableWeighted,\
     CausalNeuralHawkesMaskedWeighted,CausalNeuralHawkesMasked
 import torch
 import matplotlib.pyplot as plt

@@ -1,56 +1,39 @@
 import numpy as np
 import pandas as pd
 import scipy as sc
+from tick.hawkes import HawkesADM4, HawkesSumGaussians
+from sklearn.preprocessing import MinMaxScaler
+
+def data_preprocessing(data, n_types):
+    data_processed = []
+    for sequence in data:
+        updated_sequence = [[] for _ in range(n_types)]
+        for item in sequence:
+            updated_sequence[item['type_event']].append(item['time_since_start'])
+        updated_sequence = [np.array(item, dtype=np.double) for item in updated_sequence]
+        data_processed.append(updated_sequence)
+    return data_processed
 
 
-def get_causality_graph(
-    N: int,
-    Nmax: int,
-    Tmax: int,
-    tstep: float,
-    dt: float,
-    M: float,
-    GenerationNum: int,
-    D: int,
-    kernel="gauss",
-    w=2,
-) -> nd.array:
-    """
-    N: the number of sequences
-    Nmax: the maximum number of events per sequence
-    Tmax: the maximum size of time window
-    dt: the length of each time step
-    M: the number of steps in the time interval for computing sup-intensity
-    GenerationNum: the number of generations for branch processing
-    D: the dimension of Hawkes processes
-    kernel: the type of kernels per impact function
-    w: the bandwidth of gaussian kernel
-    landmark: the central locations of kernels
-    """
+def get_causality_graph(train, test, type_size, method):
+    processed_train = data_preprocessing(train, type_size)
+    processed_test = data_preprocessing(test, type_size)
 
-    landmark = np.arange(0, 13, 4)
-    L = len(landmark)
+    if method == 'ADM4':
+        decay = .3
+        estimator_adm4 = HawkesADM4(decay, n_threads=6)
+        estimator_adm4.fit(processed_train)
+        W = estimator_adm4.adjacency
+        # print(method, f'log-likelihood: {estimator_adm4.score(processed_test)}')
 
-    mu = np.random.random(D)/D
-    A = np.zeros((L, D, D), dtype = float)
-    for l in range(L):
-        A[l, :, :] = (0.5 ** (l + 1)) * (0.5 + np.ones((D, D)))
+    elif method == 'SumGaussians':
+        learner = HawkesSumGaussians(5, max_iter=100)
+        learner.fit(processed_train)
+        W = learner.get_kernel_norms()
 
+    scaler = MinMaxScaler()
+    A = scaler.fit_transform(W)
+    A[A > 0.5] = 1
+    A[A < 0.5] = 0
 
-
-
-
-    # 1. Approximate simulation of Hawkes processes via branching process
-    # 2. Initialize ground truth parameters
-    # mu =
-    # A =
-
-    # 3. Visualize all impact functions and infectivity matrix
-
-    # 4. Maximum likelihood estimation and basis representation
-
-    # 5. Learning the model by MLE
-
-    # 6. Visualize the infectivity matrix (the adjacent matrix of Granger causality graph)
-
-    return None
+    return W, A
