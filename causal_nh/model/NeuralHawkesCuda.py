@@ -4,15 +4,16 @@ import torch.nn as nn
 
 
 class NeuralHawkes(nn.Module):
-    def __init__(self, n_types, beta=0.1, hid_dim=32, lr=0.01):
+    def __init__(self, n_types, beta=0.1, hid_dim=32, lr=0.01, device='cuda'):
         self.n_types = n_types
         self.beta = beta
         self.hid_dim = hid_dim
+        self.device = device
         # self.weighted_A = torch.nn.Parameter(torch.FloatTensor(n_types, n_types).fill_(1), requires_grad=True)
 
         super(NeuralHawkes, self).__init__()
         self.emb = nn.Embedding(self.n_types + 1, self.hid_dim)
-        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta)
+        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta, device=self.device)
         # self.hidden_lambda = torch.matmul(nn.Linear(self.hid_dim, self.n_types), self.weighted_A)
         self.hidden_lambda = nn.Linear(self.hid_dim, self.n_types)
 
@@ -47,10 +48,10 @@ class NeuralHawkes(nn.Module):
 
     def forward(self, types, dtime):
         numb_seq, seq_len = dtime.shape
-        types = types.to('cuda')
-        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
+        types = types.to(self.device)
+        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
 
         h_list, c_list, c_bar_list, decay_list, gate_out_list = [], [], [], [], []
         for i in range(seq_len - 1):
@@ -156,19 +157,20 @@ class NeuralHawkes(nn.Module):
 
 
 class CausalNeuralHawkesMasked(nn.Module):
-    def __init__(self, n_types, A, beta=0.1, hid_dim=32, lr=0.01):
+    def __init__(self, n_types, A, W, beta=0.1, hid_dim=32, lr=0.01, device='cuda'):
         self.n_types = n_types
         self.beta = beta
         self.hid_dim = hid_dim
         self.A = A
+        self.device = device
         print(self.A)
 
         super(CausalNeuralHawkesMasked, self).__init__()
         self.emb = nn.Embedding(self.n_types + 1, self.hid_dim)
-        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta)
+        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta, device=self.device)
         self.hidden_lambda = nn.Linear(self.hid_dim, self.n_types)
         self.weighted_A = torch.nn.Parameter(self.A, requires_grad=False)
-        #r = torch.ones((n_types, n_types)).to('cuda')
+        #r = torch.ones((n_types, n_types)).to(self.device)
         #print(r)
         #self.weighted_A = torch.nn.Parameter(r, requires_grad=True)
         self.optimizer = torch.optim.Adam(self.parameters(), lr=lr)
@@ -180,8 +182,8 @@ class CausalNeuralHawkesMasked(nn.Module):
         self, batch, sim_dur, total_time_lists, seq_len_lists, time_simulation_index
     ):
         types, dtime = batch
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
         h_out, c_out, c_bar_out, decay_out, gate_out = self.forward(types, dtime)
         part_one_likelihood, part_two_likelihood, sum_likelihood = self.conttime_loss(
             h_out,
@@ -203,11 +205,11 @@ class CausalNeuralHawkesMasked(nn.Module):
 
     def forward(self, types, dtime):
         numb_seq, seq_len = dtime.shape
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
-        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
+        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
 
         h_list, c_list, c_bar_list, decay_list, gate_out_list = [], [], [], [], []
         for i in range(seq_len - 1):
@@ -251,7 +253,7 @@ class CausalNeuralHawkesMasked(nn.Module):
         sim_len = time_simulation_index.shape[1]
         part_one_likelihood = torch.zeros(batch_size)
         sum_likelihood = torch.zeros(batch_size)
-        h = h.to('cuda')
+        h = h.to(self.device)
         b = self.A.mul(self.weighted_A).t()
         r = torch.matmul(self.hidden_lambda(h), b)
         type_intensity = torch.nn.functional.softplus(r).transpose(
@@ -315,20 +317,21 @@ class CausalNeuralHawkesMasked(nn.Module):
         return part_one_likelihood, part_two_likelihood, sum_likelihood
 
 class CausalNeuralHawkesMaskedWeighted(nn.Module):
-    def __init__(self, n_types, A, W, beta=0.1, hid_dim=32, lr=0.01):
+    def __init__(self, n_types, A, W, beta=0.1, hid_dim=32, lr=0.01, device='cuda'):
         self.n_types = n_types
         self.beta = beta
         self.hid_dim = hid_dim
         self.A = A
-        self.W = W.to('cuda')
+        self.W = W
+        self.device = device
         print(self.A)
 
         super(CausalNeuralHawkesMaskedWeighted, self).__init__()
         self.emb = nn.Embedding(self.n_types + 1, self.hid_dim)
-        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta)
+        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta, device=self.device)
         self.hidden_lambda = nn.Linear(self.hid_dim, self.n_types)
         self.weighted_A = torch.nn.Parameter(self.W, requires_grad=False)
-        #r = torch.ones((n_types, n_types)).to('cuda')
+        #r = torch.ones((n_types, n_types)).to(self.device)
         #print(r)
         #self.weighted_A = torch.nn.Parameter(r, requires_grad=True)
         self.optimizer = torch.optim.Adam(self.parameters(), lr=lr)
@@ -340,8 +343,8 @@ class CausalNeuralHawkesMaskedWeighted(nn.Module):
         self, batch, sim_dur, total_time_lists, seq_len_lists, time_simulation_index
     ):
         types, dtime = batch
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
         h_out, c_out, c_bar_out, decay_out, gate_out = self.forward(types, dtime)
         part_one_likelihood, part_two_likelihood, sum_likelihood = self.conttime_loss(
             h_out,
@@ -363,11 +366,11 @@ class CausalNeuralHawkesMaskedWeighted(nn.Module):
 
     def forward(self, types, dtime):
         numb_seq, seq_len = dtime.shape
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
-        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
+        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
 
         h_list, c_list, c_bar_list, decay_list, gate_out_list = [], [], [], [], []
         for i in range(seq_len - 1):
@@ -411,7 +414,7 @@ class CausalNeuralHawkesMaskedWeighted(nn.Module):
         sim_len = time_simulation_index.shape[1]
         part_one_likelihood = torch.zeros(batch_size)
         sum_likelihood = torch.zeros(batch_size)
-        h = h.to('cuda')
+        h = h.to(self.device)
         b = self.A.mul(self.weighted_A).t()
         r = torch.matmul(self.hidden_lambda(h), b)
         type_intensity = torch.nn.functional.softplus(r).transpose(
@@ -475,20 +478,21 @@ class CausalNeuralHawkesMaskedWeighted(nn.Module):
         return part_one_likelihood, part_two_likelihood, sum_likelihood
 
 class CausalNeuralHawkesTrainableWeighted(nn.Module):
-    def __init__(self, n_types, A, W, beta=0.1, hid_dim=32, lr=0.01):
+    def __init__(self, n_types, A, W, beta=0.1, hid_dim=32, lr=0.01, device='cuda'):
         self.n_types = n_types
         self.beta = beta
         self.hid_dim = hid_dim
         self.A = A
         self.W = W
-        print(self.A)
+        #print(self.A)
+        self.device = device
 
         super(CausalNeuralHawkesTrainableWeighted, self).__init__()
         self.emb = nn.Embedding(self.n_types + 1, self.hid_dim)
-        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta)
+        self.lstm_cell = ContTimeLSTM_Cell.CTLSTMCell(hid_dim, beta, device=device)
         self.hidden_lambda = nn.Linear(self.hid_dim, self.n_types)
         self.weighted_A = torch.nn.Parameter(self.W, requires_grad=True)
-        #r = torch.ones((n_types, n_types)).to('cuda')
+        #r = torch.ones((n_types, n_types)).to(self.device)
         #print(r)
         #self.weighted_A = torch.nn.Parameter(r, requires_grad=True)
         self.optimizer = torch.optim.Adam(self.parameters(), lr=lr)
@@ -500,8 +504,8 @@ class CausalNeuralHawkesTrainableWeighted(nn.Module):
         self, batch, sim_dur, total_time_lists, seq_len_lists, time_simulation_index
     ):
         types, dtime = batch
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
         h_out, c_out, c_bar_out, decay_out, gate_out = self.forward(types, dtime)
         part_one_likelihood, part_two_likelihood, sum_likelihood = self.conttime_loss(
             h_out,
@@ -523,11 +527,11 @@ class CausalNeuralHawkesTrainableWeighted(nn.Module):
 
     def forward(self, types, dtime):
         numb_seq, seq_len = dtime.shape
-        types = types.to('cuda')
-        dtime = dtime.to('cuda')
-        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
-        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to('cuda')
+        types = types.to(self.device)
+        dtime = dtime.to(self.device)
+        self.hid_layer_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
+        self.cell_bar_minus = torch.zeros(numb_seq, self.hid_dim, dtype=torch.float32).to(self.device)
 
         h_list, c_list, c_bar_list, decay_list, gate_out_list = [], [], [], [], []
         for i in range(seq_len - 1):
@@ -571,7 +575,7 @@ class CausalNeuralHawkesTrainableWeighted(nn.Module):
         sim_len = time_simulation_index.shape[1]
         part_one_likelihood = torch.zeros(batch_size)
         sum_likelihood = torch.zeros(batch_size)
-        h = h.to('cuda')
+        h = h.to(self.device)
         b = self.A.mul(self.weighted_A).t()
         r = torch.matmul(self.hidden_lambda(h), b)
         type_intensity = torch.nn.functional.softplus(r).transpose(

@@ -9,8 +9,7 @@ class CTLSTMCell(nn.Module):
     def __init__(self, hidden_dim, beta=1.0, device=None):
         super(CTLSTMCell, self).__init__()
 
-        device = device or "cpu"
-        self.device = torch.device(device)
+        self.device = device
 
         self.hidden_dim = hidden_dim
 
@@ -51,7 +50,7 @@ class CTLSTMCell(nn.Module):
     def decay(self, cell_i, cell_bar_i, gate_decay, gate_output, dtime):
         # no need to consider extra_dim_particle here
         # cuz this function is applicable to any # of dims
-        dtime = dtime.to('cuda')
+        dtime = dtime.to(self.device)
         if dtime.dim() < cell_i.dim():
             dtime = dtime.unsqueeze(cell_i.dim() - 1).expand_as(cell_i)
 
