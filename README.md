@@ -14,36 +14,84 @@ Data files are separated into the following splits:
 In this repo we store all data in [data folder](data/)
 
 # Existing solutions
-[THAP: A matlab Tool for HAwkes Processes](https://github.com/HongtengXu/Hawkes-Process-Toolkit) provides functionality for Hawkes Process analysis in MatLab language.
-We use this library as inspiration for Granger Causality for Hawkes process implimentation.
-This solution code can be found in [this folder](related_implementations/Hawkes-Process-Toolkit-master)
+We use tick library as a source of implementations for Granger Causality for Hawkes process estimation.
+We also rely on tick in the process of synthetic dataset generation.
 
-[Neural Hawkes](https://github.com/xiao03/nh) is existing PyTorch implementation of Neural Hawkes from original authors of the approach. 
+[Neural Hawkes](https://github.com/Hongrui24/NeuralHawkesPytorch) is existing PyTorch implementation of Neural Hawkes based on the original implementation from the authors of the approach. 
 We will use this implementation as a startign point of our own reimplementation. 
 It provides simple and understandable solution. 
 Moreover, it provides useful datasets for experiments with the model. 
-This solution code can be found in [this folder](related_implementations/nh-master)
+This solution code can be found in [this folder](related_implementations/)
 
 # Our approach
-The code for our approach is stored in [causal_nh/ folder](causal_nh/).
+The code for our approach is stored in [causal_nh/](causal_nh/).
 We divided it into two modules: grander causality and the modified Neural Hawkes model.
-Examples of the code usage can be found in [notebooks/ folder](causal_nh/notebooks/)
+Examples of the code usage can be found in [notebooks/](causal_nh/notebooks/)
 
 
 # Repo structure
 ``` 
+├── README.md
+├── artefacts
 ├── causal_nh
+│   ├── __init__.py
 │   ├── granger_causality
+│   │   ├── __init__.py
+│   │   └── **granger_causality_graph.py**
 │   ├── model
+│   │   ├── ContTimeLSTM_Cell.py
+│   │   ├── NeuralHawkes.py
+│   │   └── __init__.py
 │   ├── notebooks
-│   └── __init__.py
+│   │   ├── Causality_estimation.ipynb
+│   │   ├── Data_Exploration.ipynb
+│   │   ├── Obtaining_synthetic_data.ipynb
+│   │   ├── Train_NeuralHawkes_Polina.ipynb
+│   │   ├── Train_NeuralHawkes_main.ipynb
+│   │   └── dataset_summary.csv
+│   ├── test.py
+│   ├── tests
+│   │   ├── test_CausalNH.py
+│   │   └── test_NH.py
+│   ├── train.py
+│   └── utils.py
 ├── data
-│   ├── data_hawkesinhib
-│   └── README.md
+│   ├── NeuralHawkesData
+│   │   ├── data_bookorder
+│   │   ├── data_conttime
+│   │   ├── data_hawkes
+│   │   ├── data_hawkesinhib
+│   │   ├── data_meme
+│   │   ├── data_mimic
+│   │   ├── data_missing
+│   │   ├── data_retweet
+│   │   ├── data_retweet_sampled
+│   │   └── data_so
+│   ├── README.md
+│   ├── data_synth_10_events_small
+│   │   ├── A.pkl
+│   │   ├── dev.pkl
+│   │   ├── test.pkl
+│   │   └── train.pkl
+│   ├── data_synth_2_events_small
+│   │   ├── A.pkl
+│   │   ├── dev.pkl
+│   │   ├── test.pkl
+│   │   └── train.pkl
+│   ├── data_synth_3_events_small
+│   │   ├── A.pkl
+│   │   ├── dev.pkl
+│   │   ├── test.pkl
+│   │   └── train.pkl
+│   └── data_synth_5_events_small
+│       ├── A.pkl
+│       ├── dev.pkl
+│       ├── test.pkl
+│       └── train.pkl
 ├── related_implementations
-│   ├── Hawkes-Process-Toolkit-master
-│   ├── nh-master
-│   └── README.md
-└── README.md
+│   ├── NeuralHawkesPytorch
+│   ├── README.md
+│   └── nh_master
+└── setup.py
 
 ``` 
