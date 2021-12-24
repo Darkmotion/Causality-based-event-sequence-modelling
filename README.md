@@ -46,7 +46,6 @@ Examples of the code usage can be found in [notebooks/](causal_nh/notebooks/)
 │   │   ├── Causality_estimation.ipynb
 │   │   ├── Data_Exploration.ipynb
 │   │   ├── Obtaining_synthetic_data.ipynb
-│   │   ├── Train_NeuralHawkes_Polina.ipynb
 │   │   ├── Train_NeuralHawkes_main.ipynb
 │   │   └── dataset_summary.csv
 │   ├── test.py
