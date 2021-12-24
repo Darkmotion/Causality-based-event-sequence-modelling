@@ -22,7 +22,7 @@ It provides simple and understandable solution.
 Moreover, it provides useful datasets for experiments with the model. 
 This solution code can be found in [this folder](related_implementations/)
 
-# Our approach
+# Repository structure
 The code for our approach is stored in [causal_nh/](causal_nh/).
 Our implementation can be installed from the [setup.py](setup.py) file as a package.
 It requires Pytorch and tick libraries to be installed.
