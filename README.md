@@ -9,7 +9,6 @@ Data files are separated into the following splits:
 * **Train** : Training the model
 * **Dev** : Tuning hyper parameters
 * **Test** : Final test and numbers in the paper
-* **(Test1)** : Future test
 
 In this repo we store all data in [data folder](data/)
 
@@ -17,7 +16,7 @@ In this repo we store all data in [data folder](data/)
 We use tick library as a source of implementations for Granger Causality for Hawkes process estimation.
 We also rely on tick in the process of synthetic dataset generation.
 
-[Neural Hawkes](https://github.com/Hongrui24/NeuralHawkesPytorch) is existing PyTorch implementation of Neural Hawkes based on the original implementation from the authors of the approach. 
+[Neural Hawkes](https://github.com/Hongrui24/NeuralHawkesPytorch) is existing PyTorch implementation of Neural Hawkes based on the original implementation from the authors of the approach([nh](https://github.com/xiao03/nh)), which is also included. 
 We will use this implementation as a startign point of our own reimplementation. 
 It provides simple and understandable solution. 
 Moreover, it provides useful datasets for experiments with the model. 
@@ -25,9 +24,15 @@ This solution code can be found in [this folder](related_implementations/)
 
 # Our approach
 The code for our approach is stored in [causal_nh/](causal_nh/).
-We divided it into two modules: grander causality and the modified Neural Hawkes model.
-Examples of the code usage can be found in [notebooks/](causal_nh/notebooks/)
-
+Our implementation can be installed from the setup.py file as a package.
+The main folder is causal\_nh, which contains two main modules: granger causality and model.
+Granger causality module contains a function to estimate matrices $A$ and $W$ from the given dataset. 
+An example of its usage on our synthetic data can be found in the notebooks. 
+The model module contains modified versions of Neural Hawkes models. 
+The code for training and testing the model is contained in the root of causal\_nh, while the example of its usage can be found in notebooks.
+Additionally, module with utils contains useful functions for plotting and synthetic dataset generation. 
+Data folder contains all possible datasets on which the model can be run, including the original Neural Hawkes datasets and our synthetic ones.
+In the folder with related implementations we store the original implementations of Neural Hawkes, on which we base our code.
 
 # Repo structure
 ``` 
