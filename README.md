@@ -10,8 +10,8 @@ Data files are separated into the following splits:
 * **Dev** : Tuning hyper parameters
 * **Test** : Final test and numbers in the paper
 
-In this repo we store all data in [data folder](data/)
-All obtaning results are avaliable via [this link](https://www.dropbox.com/s/uyldl8lzr9djxnh/artefacts.zip?dl=0)
+In this repo we store all data in [data folder](data/).
+All obtaining results are available via [this link](https://www.dropbox.com/s/uyldl8lzr9djxnh/artefacts.zip?dl=0)
 
 # Existing solutions
 We use tick library as a source of implementations for Granger Causality for Hawkes process estimation.
