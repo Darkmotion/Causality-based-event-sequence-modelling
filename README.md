@@ -2,8 +2,8 @@
 Implementation of the Casual based Neural Hawkes model as a course project for the Models of Sequential Data course.
 
 # Dataset
-For experiments we use the data from the original implementation of Neural Hawkes. 
-It can be downloaded via [this link](https://drive.google.com/drive/folders/0BwqmV0EcoUc8UklIR1BKV25YR1U?resourcekey=0-OrlU87jyc1m-dVMmY5aC4w&usp=sharing).
+For experiments, we use the data from the original implementation of Neural Hawkes as also synthetic data. 
+It can be downloaded via [this link](https://www.dropbox.com/s/bu02lcs3wcmh5zk/data.zip?dl=0).
 Each dataset is contained in a separate folder with corresponding name. 
 Data files are separated into the following splits:
 * **Train** : Training the model
