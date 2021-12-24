@@ -24,13 +24,17 @@ This solution code can be found in [this folder](related_implementations/)
 
 # Our approach
 The code for our approach is stored in [causal_nh/](causal_nh/).
-Our implementation can be installed from the setup.py file as a package.
-The main folder is causal\_nh, which contains two main modules: granger causality and model.
-Granger causality module contains a function to estimate matrices $A$ and $W$ from the given dataset. 
-An example of its usage on our synthetic data can be found in the notebooks. 
+Our implementation can be installed from the [setup.py](setup.py) file as a package.
+It requires Pytorch and tick libraries to be installed.
+
+Our package contains two main modules: granger causality and model.
+Granger causality module contains a function to estimate matrices A and W from the given dataset. 
+An example of its usage on our synthetic data can be found in the [Causality_estimation](causal_nh/notebooks/Causality_estimation.ipynb). 
+
 The model module contains modified versions of Neural Hawkes models. 
-The code for training and testing the model is contained in the root of causal\_nh, while the example of its usage can be found in notebooks.
-Additionally, module with utils contains useful functions for plotting and synthetic dataset generation. 
+The code for training and testing the model is contained in the root of causal\_nh, while the example of its usage can be found in [Train_NeuralHawkes_main](causal_nh/notebooks/Train_NeuralHawkes_main.ipynb).
+Additionally, module with utils contains useful functions for plotting and synthetic dataset generation, with more detail on this functions in [Obtaining_synthetic_data](causal_nh/notebooks/Obtaining_synthetic_data.ipynb). 
+
 Data folder contains all possible datasets on which the model can be run, including the original Neural Hawkes datasets and our synthetic ones.
 In the folder with related implementations we store the original implementations of Neural Hawkes, on which we base our code.
 
