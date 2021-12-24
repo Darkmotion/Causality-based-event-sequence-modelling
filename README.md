@@ -37,7 +37,7 @@ Examples of the code usage can be found in [notebooks/](causal_nh/notebooks/)
 │   ├── __init__.py
 │   ├── granger_causality
 │   │   ├── __init__.py
-│   │   └── **granger_causality_graph.py**
+│   │   └── granger_causality_graph.py
 │   ├── model
 │   │   ├── ContTimeLSTM_Cell.py
 │   │   ├── NeuralHawkes.py
@@ -69,20 +69,8 @@ Examples of the code usage can be found in [notebooks/](causal_nh/notebooks/)
 │   │   └── data_so
 │   ├── README.md
 │   ├── data_synth_10_events_small
-│   │   ├── A.pkl
-│   │   ├── dev.pkl
-│   │   ├── test.pkl
-│   │   └── train.pkl
 │   ├── data_synth_2_events_small
-│   │   ├── A.pkl
-│   │   ├── dev.pkl
-│   │   ├── test.pkl
-│   │   └── train.pkl
 │   ├── data_synth_3_events_small
-│   │   ├── A.pkl
-│   │   ├── dev.pkl
-│   │   ├── test.pkl
-│   │   └── train.pkl
 │   └── data_synth_5_events_small
 │       ├── A.pkl
 │       ├── dev.pkl
